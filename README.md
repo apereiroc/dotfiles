@@ -1,16 +1,26 @@
 # Dotfiles
 
-## Fresh install
+My minimal, modular, and portable dotfiles setup for macOS. Future developments will support Linux as well.
 
-Clone the repository
+## 🛠 Fresh install
+
+Install the CLI tools to get Git
 
 ```bash
-git clone git@github.com:apereiroc/dotfiles.git
-cd dotfiles
+xcode-select --install
 ```
 
-Install **Homebrew**
+1. Clone the repository
 
 ```bash
-bash install_homebrew.sh
+DOTFILES=$HOME/Projects/dotfiles
+mkdir -p $DOTFILES
+git clone git@github.com:apereiroc/dotfiles.git $DOTFILES
+cd $DOTFILES
+```
+
+2. Run the bootstrap script
+
+```bash
+./bootstrap.sh
 ```
