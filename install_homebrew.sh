@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Install Homebrew + packages
-echo "Installing Homebrew and packages..."
+if [[ $(command -v brew) == "" ]]; then
+  echo "🔧 Installing Homebrew ..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
 
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew bundle --file=~/dotfiles/Brewfile
-
-echo "Done ✅"
+echo "📦 Installing Brew packages..."
+brew bundle --file=./Brewfile
