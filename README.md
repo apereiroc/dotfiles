@@ -4,12 +4,6 @@ My minimal, modular, and portable dotfiles setup for macOS. Future developments 
 
 ## 🛠 Fresh install
 
-Install the CLI tools to get Git
-
-```bash
-xcode-select --install
-```
-
 1. Clone the repository
 
 ```bash
