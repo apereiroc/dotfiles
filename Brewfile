@@ -9,6 +9,8 @@ brew "tree"
 brew "lsd"
 brew "bat"
 brew "fd"
+brew "stow"
+
 
 # Casks (GUI apps)
 cask "rectangle"
