@@ -9,7 +9,7 @@ My minimal, modular, and portable dotfiles setup for macOS. Future developments 
 ```bash
 DOTFILES=$HOME/Projects/dotfiles
 mkdir -p $DOTFILES
-git clone git@github.com:apereiroc/dotfiles.git $DOTFILES
+git clone https://github.com/apereiroc/dotfiles.git $DOTFILES
 cd $DOTFILES
 ```
 
