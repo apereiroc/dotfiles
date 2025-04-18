@@ -12,9 +12,9 @@ brew "neovim"
 brew "stow"
 
 brew "zsh-autosuggestions"
-brew "zsh-completions"
-brew "zsh-git-prompt"
-brew "zsh-navigation-tools"
+# brew "zsh-completions"
+# brew "zsh-git-prompt"
+# brew "zsh-navigation-tools"
 brew "zsh-syntax-highlighting"
 
 
