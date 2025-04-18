@@ -16,5 +16,5 @@ cd $DOTFILES
 2. Run the bootstrap script
 
 ```bash
-./bootstrap.sh
+bash bootstrap.sh
 ```
