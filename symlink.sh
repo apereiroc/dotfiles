@@ -13,4 +13,7 @@ echo "    Linking kitty ..."
 mkdir -p $HOME/.config/kitty
 stow --restow --target=$HOME/.config/kitty kitty
 
+echo "    Linking zsh ..."
+stow --restow --target=$HOME zsh
+
 echo "Dotfiles symlinked."
