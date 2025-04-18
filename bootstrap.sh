@@ -13,4 +13,4 @@ echo "📦 Installing Brew packages..."
 brew bundle --file=./Brewfile
 
 # run symlinks
-bash symlink.sh
+./symlink.sh
