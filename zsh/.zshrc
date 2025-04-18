@@ -27,9 +27,22 @@ function get_env {
 # disables prompt mangling in venv/bin/activate
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
+
+
 ## -- zsh plugins
 
 # init completions
-FPATH=$HOMEBREW_PREFIX/share/zsh-completions:$FPATH
 autoload -Uz compinit
 compinit
+
+# autosuggestions
+source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=241'
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+CASE_SENSITIVE="false"
+setopt MENU_COMPLETE
+setopt no_list_ambiguous
+
+
+# syntax highlighting
+source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
