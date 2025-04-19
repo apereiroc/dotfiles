@@ -1,32 +1,24 @@
+DOTFILES=$HOME/.dotfiles
+ZDOTFILES=$DOTFILES/zsh
+
+## -- Functions
+source $ZDOTFILES/functions.zsh
+
+
+## -- Aliases 
+source $ZDOTFILES/aliases.zsh
+
 ## -- Homebrew
 
-if [[ "$(uname -m)" == "x86_64" ]]; then
-  export HOMEBREW_PREFIX="/usr/local"
-else
-  export HOMEBREW_PREFIX="/opt/homebrew"
+if is_file_and_exists $DOTFILES/brew.sh; then
+  source $DOTFILES/brew.sh
 fi
-
-eval $($HOMEBREW_PREFIX/bin/brew shellenv)
 
 ## -- prompt
 
-export CONDA_AUTO_ACTIVATE_BASE=false
-export CONDA_ALWAYS_YES=true
-export VIRTUAL_ENV_DISABLE_PROMPT=0
-
-function get_env {
- if [ $VIRTUAL_ENV ]; then
-   echo "('`basename $VIRTUAL_ENV`') "
- elif [ $CONDA_DEFAULT_ENV ]; then
-   echo "${CONDA_DEFAULT_ENV}"
- else
-   echo "syst"
- fi
-}
-
-# disables prompt mangling in venv/bin/activate
-export VIRTUAL_ENV_DISABLE_PROMPT=1
-
+if is_file_and_exists $ZDOTFILES/prompt.sh; then
+  source $ZDOTFILES/prompt.sh
+fi
 
 
 ## -- zsh plugins
@@ -36,13 +28,21 @@ autoload -Uz compinit
 compinit
 
 # autosuggestions
-source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=241'
-ZSH_AUTOSUGGEST_USE_ASYNC=1
-CASE_SENSITIVE="false"
-setopt MENU_COMPLETE
-setopt no_list_ambiguous
+if is_file_and_exists $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh; then
+  source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=241'
+  ZSH_AUTOSUGGEST_USE_ASYNC=1
+  CASE_SENSITIVE="false"
+  setopt MENU_COMPLETE
+  setopt no_list_ambiguous
+else
+  echo "Skipping zsh autosuggestions (not installed)"
+fi
 
 
 # syntax highlighting
-source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if is_file_and_exists $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh; then
+  source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+else
+  echo "Skipping zsh syntax highlighting (not installed)"
+fi
