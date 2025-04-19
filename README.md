@@ -1,20 +1,23 @@
 # Dotfiles
 
-My minimal, modular, and portable dotfiles setup for macOS. Future developments will support Linux as well.
+My minimal, modular, and portable dotfiles setup for macOS/Linux.
 
 ## 🛠 Fresh install
 
 1. Clone the repository
 
 ```bash
-DOTFILES=$HOME/Projects/dotfiles
-mkdir -p $DOTFILES
-git clone https://github.com/apereiroc/dotfiles.git $DOTFILES
-cd $DOTFILES
+git clone https://github.com/apereiroc/dotfiles.git $HOME/.dotfiles
 ```
 
 2. Run the bootstrap script
 
 ```bash
-./bootstrap.sh
+$HOME/.dotfiles/bootstrap.sh
+```
+
+## Docker (development)
+
+```bash
+docker buildx build --platform=linux/amd64 -f Dockerfile -t dotfiles-dev . && docker run --platform=linux/amd64 --rm -it dotfiles-dev
 ```
