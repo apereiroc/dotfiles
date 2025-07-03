@@ -17,8 +17,13 @@ fi
 ## -- prompt
 source $ZSH_CONFIG_DIR/prompt.zsh
 
+## -- scripts
+export PATH="$DOTFILES/scripts":$PATH
+
 ## -- others
 source $ZSH_CONFIG_DIR/others.zsh
+
+
 
 ## -- zsh plugins
 
