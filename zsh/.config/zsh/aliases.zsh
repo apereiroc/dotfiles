@@ -13,4 +13,4 @@ alias lzd='lazydocker'
 alias ls='lsd --group-directories-first'
 alias ll='ls -la'
 
-alias cat='bat'
+alias cat='bat -p --paging=never'
