@@ -1,4 +1,4 @@
-DOTFILES="$HOME/dotfiles"
+DOTFILES="$HOME/.dotfiles"
 ZSH_CONFIG_DIR="$HOME/.config/zsh"
 
 ## -- Functions
@@ -18,7 +18,7 @@ fi
 
 ## -- prompt
 
-source $ZSH_CONFIG_DIR/prompt.sh
+source $ZSH_CONFIG_DIR/prompt.zsh
 
 
 ## -- zsh plugins
