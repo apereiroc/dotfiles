@@ -163,7 +163,8 @@ __human_time_to_var() {
 # time of the last command if set threshold was exceeded.
 __check_cmd_exec_time() {
   integer elapsed
-  (( elapsed = EPOCHSECONDS - ${cmd_timestamp:-$EPOCHSECONDS} ))
+  local ts=${cmd_timestamp:-$EPOCHSECONDS}
+  (( elapsed = EPOCHSECONDS - ts ))
   typeset -g cmd_exec_time=
   (( elapsed > 1 )) && {
     __human_time_to_var $elapsed "cmd_exec_time"
