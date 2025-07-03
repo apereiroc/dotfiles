@@ -27,4 +27,9 @@ if command_exists zsh; then
   stow --restow --target=$HOME zsh
 fi
 
+echo "    Linking fzf ..."
+if command_exists fzf; then
+  stow --restow --target=$HOME fzf
+fi
+
 echo "Dotfiles symlinked."
