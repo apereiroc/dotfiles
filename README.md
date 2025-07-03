@@ -19,7 +19,7 @@ git clone https://github.com/apereiroc/dotfiles.git $HOME/.dotfiles
 3. Run the bootstrap script
 
 ```bash
-$HOME/.dotfiles/bootstrap.sh
+sudo $HOME/.dotfiles/bootstrap.sh
 ```
 
 ## Docker (development)

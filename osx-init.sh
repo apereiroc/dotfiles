@@ -18,6 +18,6 @@ clt_label_command="/usr/sbin/softwareupdate -l |
 
 clt_label=$(/bin/bash -c ${clt_label_command})
 
-softwareupdate -i ${clt_label} --verbose
+softwareupdate -i $clt_label --verbose
 
 rm /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
