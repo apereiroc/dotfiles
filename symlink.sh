@@ -5,7 +5,7 @@ echo "Linking dotfiles..."
 # stow limitation ...
 cd $HOME/.dotfiles
 # get command_exists
-source zsh/functions.zsh
+source zsh/.config/zsh/functions.zsh
 
 if command_exists nvim; then
   echo "    Linking nvim ..."
