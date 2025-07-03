@@ -4,12 +4,10 @@ ZSH_CONFIG_DIR="$HOME/.config/zsh"
 ## -- Functions
 source $ZSH_CONFIG_DIR/functions.zsh
 
-
 ## -- Aliases 
 source $ZSH_CONFIG_DIR/aliases.zsh
 
 ## -- Homebrew
-
 if is_file_and_exists $DOTFILES/brew.sh; then
   source $DOTFILES/brew.sh
 else
@@ -17,9 +15,10 @@ else
 fi
 
 ## -- prompt
-
 source $ZSH_CONFIG_DIR/prompt.zsh
 
+## -- others
+source $ZSH_CONFIG_DIR/others.zsh
 
 ## -- zsh plugins
 
