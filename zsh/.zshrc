@@ -32,27 +32,19 @@ autoload -Uz compinit
 compinit
 
 # autosuggestions
-if is_file_and_exists $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh; then
-  source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=241'
-  ZSH_AUTOSUGGEST_USE_ASYNC=1
-  CASE_SENSITIVE="false"
-  setopt MENU_COMPLETE
-  setopt no_list_ambiguous
-  ls_colors="di=1;34:ln=36:so=35:pi=33:ex=32:bd=40;33:cd=40;33:su=37;41:sg=30;43:tw=30;42:ow=34;42"
-  zstyle ':completion:*:default' list-colors "${(s.:.)ls_colors}"
-  zstyle ':completion:*' menu yes select
-else
-  echo "Skipping zsh autosuggestions (not installed)"
-fi
+source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=241'
+# ZSH_AUTOSUGGEST_USE_ASYNC=1
+CASE_SENSITIVE="false"
+setopt MENU_COMPLETE
+setopt no_list_ambiguous
+ls_colors="di=1;34:ln=36:so=35:pi=33:ex=32:bd=40;33:cd=40;33:su=37;41:sg=30;43:tw=30;42:ow=34;42"
+zstyle ':completion:*:default' list-colors "${(s.:.)ls_colors}"
+zstyle ':completion:*' menu yes select
 
 
 # syntax highlighting
-if is_file_and_exists $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh; then
-  source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-else
-  echo "Skipping zsh syntax highlighting (not installed)"
-fi
+source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # completions
 zstyle ':completion:*' list-colors ''
