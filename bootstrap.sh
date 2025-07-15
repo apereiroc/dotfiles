@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # run homebrew installation
 # will install command line tools
