@@ -7,22 +7,7 @@ cd "$HOME/.dotfiles" # stow limitation...
 # ------------------------------------------------------------------------
 # Helpers
 # ------------------------------------------------------------------------
-source zsh/.config/zsh/functions.zsh # supplies command_exists
-
-in_wsl() {
-  # true if running under WSL
-  grep -qi microsoft /proc/version 2>/dev/null
-}
-
-get_windows_home_wsl() {
-  # return /mnt/c/Users/<username> from inside WSL
-  if in_wsl; then
-    # shellcheck disable=SC2002
-    local win_user
-    win_user=$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
-    echo "/mnt/c/Users/${win_user:-YOUR_WINDOWS_USERNAME}"
-  fi
-}
+source zsh/.config/zsh/functions.zsh # supplies command_exists, get_windows_home_wsl
 
 # ------------------------------------------------------------------------
 # Neovim
@@ -63,25 +48,19 @@ fi
 # ------------------------------------------------------------------------
 # WezTerm
 # ------------------------------------------------------------------------
-if command_exists wezterm; then
-  echo "    Linking wezterm ..."
-  if in_wsl; then
-    echo "      Linking wezterm for WSL/Windows..."
-    WIN_HOME=$(windows_home_wsl)
-    mkdir -p "$WIN_HOME"
+if command_exists wezterm.exe; then
+  echo "    Copying wezterm config for Windows..."
 
-    # link all lua files next to wezterm.lua
-    for file in "wezterm/.config/wezterm/"*.lua; do
-      ln -sf "$file" "$WIN_HOME/$(basename "$file")"
-    done
+  WIN_HOME=$(get_windows_home_wsl)
 
-    echo "      (WSL) -> linked all .lua files to $WIN_HOME"
-  else
-    # macOS / native Linux
-    echo "      Linking wezterm for macOS/Linux ..."
-    mkdir -p "$HOME/.config/wezterm"
-    stow --restow --target="$HOME/.config/wezterm" wezterm
-  fi
+  cp "wezterm/.config/wezterm/wezterm.lua" \
+    "$WIN_HOME/.wezterm.lua"
+
+  echo "      Copied to $WIN_HOME/.wezterm.lua"
+else
+  echo "    Linking wezterm for macOS/Linux..."
+  mkdir -p "$HOME/.config/wezterm"
+  stow --restow --target="$HOME/.config/wezterm" wezterm
 fi
 
 echo "Dotfiles symlinked."

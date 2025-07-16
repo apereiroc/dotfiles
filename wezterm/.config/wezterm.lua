@@ -84,15 +84,22 @@ config.hide_mouse_cursor_when_typing = true
 -- keys
 -- config.disable_default_key_bindings = true
 config.keys = {
-	-- copy with ctrl+c
-	-- also works cmd+c on macos
+	-- conditional ctrl+c
+	-- copy only if selection exists, otherwise send ctrl+c
 	{
 		key = "c",
 		mods = "CTRL",
-		action = wezterm.action.CopyTo("Clipboard"),
+		action = wezterm.action_callback(function(win, pane)
+			local has_selection = win:get_selection_text_for_pane(pane) ~= ""
+			if has_selection then
+				win:perform_action(wezterm.action.CopyTo("Clipboard"), pane)
+			else
+				-- Pass CTRL+C through to terminal (send SIGINT)
+				win:perform_action(wezterm.action.SendKey({ key = "c", mods = "CTRL" }), pane)
+			end
+		end),
 	},
-	-- paste with ctrl+v
-	-- also works cmd+v on macos
+	-- ctrl+v always pastes
 	{
 		key = "v",
 		mods = "CTRL",
