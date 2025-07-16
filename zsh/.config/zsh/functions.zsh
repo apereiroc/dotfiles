@@ -96,6 +96,10 @@ function _prompt_length() {
   echo $x
 }
 
+function in_wsl() {
+  # true if running under Windows Subsystem for Linux
+  grep -qi microsoft /proc/version 2>/dev/null
+}
 
 function get_windows_home_wsl() {
   # return /mnt/c/Users/<username> from inside WSL

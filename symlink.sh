@@ -7,7 +7,8 @@ cd "$HOME/.dotfiles" # stow limitation...
 # ------------------------------------------------------------------------
 # Helpers
 # ------------------------------------------------------------------------
-source zsh/.config/zsh/functions.zsh # supplies command_exists, get_windows_home_wsl
+## supplies command_exists, get_windows_home_wsl
+source zsh/.config/zsh/functions.zsh
 
 # ------------------------------------------------------------------------
 # Neovim
