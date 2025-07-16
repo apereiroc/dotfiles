@@ -53,14 +53,13 @@ if command_exists wezterm.exe; then
 
   WIN_HOME=$(get_windows_home_wsl)
 
-  cp "wezterm/.config/wezterm/wezterm.lua" \
+  cp "wezterm/.config/wezterm.lua" \
     "$WIN_HOME/.wezterm.lua"
 
   echo "      Copied to $WIN_HOME/.wezterm.lua"
 else
   echo "    Linking wezterm for macOS/Linux..."
-  mkdir -p "$HOME/.config/wezterm"
-  stow --restow --target="$HOME/.config/wezterm" wezterm
+  stow --restow --target="$HOME" wezterm
 fi
 
 echo "Dotfiles symlinked."
