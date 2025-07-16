@@ -1,5 +1,6 @@
 -- pull in the wezterm API
 local wezterm = require("wezterm")
+local mux = wezterm.mux
 
 -- local is_windows <const> = wezterm.target_triple:find("windows") ~= nil
 local is_windows = wezterm.target_triple:find("windows") ~= nil
@@ -28,6 +29,7 @@ config.line_height = 1.15
 config.warn_about_missing_glyphs = true
 
 -- window
+
 config.initial_cols = 80
 config.initial_rows = 40
 config.window_padding = {
@@ -47,6 +49,12 @@ config.window_decorations = "TITLE | RESIZE"
 config.adjust_window_size_when_changing_font_size = true
 
 config.window_background_opacity = 0.98
+
+-- toggle full screen on start
+wezterm.on("gui-startup", function()
+	local _, _, window = mux.spawn_window({})
+	window:gui_window():maximize()
+end)
 
 -- tab bar
 config.enable_tab_bar = true
