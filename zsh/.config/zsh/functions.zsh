@@ -95,3 +95,14 @@ function _prompt_length() {
   fi
   echo $x
 }
+
+
+function get_windows_home_wsl() {
+  # return /mnt/c/Users/<username> from inside WSL
+  if in_wsl; then
+    # shellcheck disable=SC2002
+    local win_user
+    win_user=$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r')
+    echo "/mnt/c/Users/${win_user:-YOUR_WINDOWS_USERNAME}"
+  fi
+}
