@@ -4,6 +4,10 @@ alias tree='tree -aC -I .git'
 
 # Git
 alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gcm='git commit -m'
+alias gd='git diff'
 alias lg='lazygit'
 
 # Docker
