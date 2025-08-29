@@ -2,8 +2,60 @@
 local wezterm = require("wezterm")
 local mux = wezterm.mux
 
+local function is_inside_vim(pane)
+	local tty = pane:get_tty_name()
+	if tty == nil then
+		return false
+	end
+
+	local success, stdout, stderr = wezterm.run_child_process({
+		"sh",
+		"-c",
+		"ps -o state= -o comm= -t"
+			.. wezterm.shell_quote_arg(tty)
+			.. " | "
+			.. "grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?|tmux)(diff)?$'",
+	})
+	wezterm.log_info("is_inside_vim: " .. tostring(success))
+
+	return success
+end
+
+local function is_outside_vim(pane)
+	return not is_inside_vim(pane)
+end
+
+local function bind_if(cond, key, mods, action)
+	local function callback(win, pane)
+		if cond(pane) then
+			win:perform_action(action, pane)
+		else
+			win:perform_action(wezterm.action.SendKey({ key = key, mods = mods }), pane)
+		end
+	end
+
+	return { key = key, mods = mods, action = wezterm.action_callback(callback) }
+end
+
+local navigate = {
+	bind_if(is_outside_vim, "h", "CTRL", wezterm.action.ActivatePaneDirection("Left")),
+	bind_if(is_outside_vim, "l", "CTRL", wezterm.action.ActivatePaneDirection("Right")),
+	bind_if(is_outside_vim, "j", "CTRL", wezterm.action.ActivatePaneDirection("Down")),
+	bind_if(is_outside_vim, "k", "CTRL", wezterm.action.ActivatePaneDirection("Up")),
+}
+
 -- local is_windows <const> = wezterm.target_triple:find("windows") ~= nil
 local is_windows = wezterm.target_triple:find("windows") ~= nil
+
+if is_windows then
+	-- DEFAULT_PROG = { 'wsl.exe' }
+	-- WEZTERM_CONFIG = 'C:/Users/marcos.romero/.config/wezterm'
+	LEADER_KEY = "CTRL|ALT"
+else
+	-- DEFAULT_PROG = nil
+	-- WEZTERM_CONFIG = os.getenv('HOME') .. '/.config/wezterm'
+	LEADER_KEY = "CMD"
+end
 
 -- start configuration
 local config = wezterm.config_builder()
@@ -112,6 +164,36 @@ config.keys = {
 		key = "v",
 		mods = "CTRL",
 		action = wezterm.action.PasteFrom("Clipboard"),
+	},
+	-- splits and window management {{{
+	{
+		mods = LEADER_KEY,
+		key = [[d]],
+		action = wezterm.action({
+			SplitHorizontal = { domain = "CurrentPaneDomain" },
+		}),
+	},
+	{
+		mods = LEADER_KEY .. "|SHIFT",
+		key = [[d]],
+		action = wezterm.action({
+			SplitVertical = { domain = "CurrentPaneDomain" },
+		}),
+	},
+	{
+		mods = LEADER_KEY,
+		key = "t",
+		action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }),
+	},
+	{
+		key = "W",
+		mods = LEADER_KEY,
+		action = wezterm.action({ CloseCurrentTab = { confirm = false } }),
+	},
+	{
+		key = "q",
+		mods = "ALT",
+		action = wezterm.action.CloseCurrentPane({ confirm = false }),
 	},
 }
 
